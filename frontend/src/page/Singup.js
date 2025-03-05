@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import loginSignupImage from "../assest/login.gif"
 import {BiShow,BiHide} from "react-icons/bi"
+
 
 function Singup() {
   const [showPassword, setShowPassword] = React.useState(false)
@@ -13,14 +16,14 @@ function Singup() {
   }
   return (
     <div className='p-3 md:p-4'>
-      <div className='w-full max-w-sm bg-white m-auto flex items-center flex-col p-4'>
+      <div className='w-full max-w-sm bg-white m-auto flex  flex-col p-4'>
         {/* <h1 className='text-center text-2xl font-bold'> Sign up</h1> */}
 
-        <div className='w-20 overflow-hidden rounded-full drop-shadow-md shadow-md'>
+        <div className='w-20 overflow-hidden rounded-full drop-shadow-md shadow-md flex m-auto'>
           <img src={loginSignupImage} className='w-full' />
         </div>
 
-        <form className='w-full py-3'>
+        <form className='w-full py-3 flex flex-col'>
           <label htmlFor='firstName'>First Name</label>
           <input type={"text"} id="firstName" name='firstName' className='mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300'/>
 
@@ -42,8 +45,10 @@ function Singup() {
           <span className='flex text-xl cursor-pointer' onClick={handleShowConfirmPassword}>{showConfirmPassword ?<BiShow/>:<BiHide/>}</span>
           </div>
 
-          <button className="w-full max-w-[150px] m-auto bg-red-300 hover:bg-red-500 cursor-pointer">Sign Up</button>
+          <button className="w-full max-w-[150px] m-auto bg-red-400 hover:bg-red-600 cursor-pointer text-white text-xl font font-medium text-center py-1 rounded-full mt-4">Sign Up</button>
         </form>
+          <p className='text-left text-sm mt-2'>Already have account ? <Link to={"login "} className='text-red-500 underline'>Login</Link></p>
+
       </div>
     </div>
   )
