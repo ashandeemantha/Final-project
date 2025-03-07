@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -6,6 +7,7 @@ import {BiShow,BiHide} from "react-icons/bi"
 
 const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false)
+    // eslint-disable-next-line no-unused-vars
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
     const [data,setData] = useState({
       firstName : "",
@@ -18,6 +20,7 @@ const Login = () => {
     const handleShowPassword = ()=>{
       setShowPassword(preve=> !preve)
     };
+    // eslint-disable-next-line no-unused-vars
     const handleShowConfirmPassword = ()=>{
       setShowConfirmPassword(preve=> !preve)
     };
@@ -70,8 +73,7 @@ const Login = () => {
           name='password' 
           className=' w-full bg-slate-200 border-none outline-none' 
           value={data.password}
-          onChange={handleOnChange}
-          />
+          onChange={handleOnChange}/>
           <span className='flex text-xl cursor-pointer' onClick={handleShowPassword}>{showPassword ?<BiShow/>:<BiHide/>}</span>
           </div>
 

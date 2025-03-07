@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import loginSignupImage from "../assest/login.gif"
 import {BiShow,BiHide} from "react-icons/bi"
 
 function Signup() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = React.useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
   const [data,setData] = useState({
@@ -36,6 +37,7 @@ function Signup() {
     if(firstName&&email&&password&&confirmPassword){
       if(password===confirmPassword){
         alert("Successful")
+        navigate("/login")
       }
       else{
         alert("Password and confirm password do not match")
@@ -48,8 +50,16 @@ function Signup() {
   return (
     <div className='p-3 md:p-4'>
       <div className='w-full max-w-sm bg-white m-auto flex  flex-col p-4'>
-        <div className='w-20 overflow-hidden rounded-full drop-shadow-md shadow-md flex m-auto'>
+        {/* <h1 className='text-centert text-2xl font-bold'>Sign Up</h1>*/}
+        <div className='w-20 overflow-hidden rounded-full drop-shadow-md shadow-md flex m-auto relative'>
           <img src={loginSignupImage} className='w-full' />
+
+        <label htmlFor='profileImage'>
+          <div className='absolute bottom-0 h-1/3 bg-slate-500 w-full text-center'>
+             <p className='text-sm p-1 text-white'>Upload</p>
+          </div>
+          <input type={"file"} id='profileImage'/>
+        </label>
         </div>
 
         <form className='w-full py-3 flex flex-col' onSubmit={handleSubmit}>
