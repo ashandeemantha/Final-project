@@ -15,6 +15,7 @@ function Signup() {
     email: '',
     password: '',
     confirmPassword: '',
+    image: '',
   });
 
   const handleShowPassword = () => setShowPassword((prev) => !prev);
