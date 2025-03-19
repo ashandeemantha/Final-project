@@ -4,6 +4,7 @@ import loginSignupImage from '../assest/login.gif';
 import { BiShow, BiHide } from 'react-icons/bi';
 
 function Signup() {
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -53,7 +54,7 @@ console.log(process.env.REACT_APP_SERVER_DOMIN)
         const dataRes = await fetchData.json()
         console.log(dataRes)
 
-        alert('Signup Successful');
+        alert(dataRes.message);
         //navigate('/login');
       } else {
         alert('Passwords do not match');
