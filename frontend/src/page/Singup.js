@@ -37,14 +37,18 @@ function Signup() {
   };
 
 console.log(process.env.REACT_APP_SERVER_DOMIN)
-  const handleSubmit = async(e) => {
+
+const handleSubmit = async (e) => {
+    console.log(data); // Log the input data to the terminal
+
     e.preventDefault();
     const { firstName, email, password, confirmPassword } = data;
 
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
         // eslint-disable-next-line no-unused-vars, no-template-curly-in-string
-        const fetchData = await fetch('${process.env.REACT_APP_SERVER_DOMIN}/signup',{
+        const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/Signup`, {
+
           method : 'POST',
           headers : {
             "content-type" : "application/json"
