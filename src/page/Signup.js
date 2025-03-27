@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import loginSignupImage from '../assest/login.gif';
 import { BiShow, BiHide } from 'react-icons/bi';
+import { ImagetoBase64 } from '../utility/ImagetoBase64';
 
 function Signup() {
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [profileImage, setProfileImage] = useState(loginSignupImage);
+  const [profileImage] = useState(loginSignupImage);
 
   const [data, setData] = useState({
     firstName: '',
@@ -19,6 +20,7 @@ function Signup() {
     image: '',
   });
 
+  console.log(data);
   const handleShowPassword = () => setShowPassword((prev) => !prev);
   const handleShowConfirmPassword = () => setShowConfirmPassword((prev) => !prev);
 
@@ -27,13 +29,16 @@ function Signup() {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setProfileImage(reader.result);
-      reader.readAsDataURL(file);
-    }
+  const handleImageChange = async(e) => {
+    const data = await ImagetoBase64(e.target.files[0])
+    console.log(data)
+
+    setData((preve)=>{
+      return{
+        ...preve,
+        image:data
+      }
+    })
   };
 
 console.log(process.env.REACT_APP_SERVER_DOMIN)
@@ -46,8 +51,10 @@ const handleSubmit = async (e) => {
 
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
+        alert("successfull")
         // eslint-disable-next-line no-unused-vars, no-template-curly-in-string
-        const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/Signup`, {
+const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/Signup`, {
+
 
           method : 'POST',
           headers : {
@@ -72,7 +79,8 @@ const handleSubmit = async (e) => {
     <div className="p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
         <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md flex m-auto relative cursor-pointer">
-          <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+          <img src={data.image ? data.image:profileImage} alt="Profile" className="w-full h-full object-cover" />
+
           <label htmlFor="profileImage" className="absolute bottom-0 h-1/3 w-full text-center cursor-pointer">
             <p className="text-sm p-1 text-black">Upload</p>
             <input
@@ -117,7 +125,7 @@ const handleSubmit = async (e) => {
           />
 
           <label htmlFor="password">Password</label>
-          <div className="flex items-center px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline-blue-300">
+          <div className="flex items-center px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
             <input
               type={showPassword ? 'text' : 'password'}
               id="password"
@@ -132,7 +140,7 @@ const handleSubmit = async (e) => {
           </div>
 
           <label htmlFor="confirmPassword">Confirm Password</label>
-          <div className="flex items-center px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline-blue-300">
+          <div className="flex items-center px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               id="confirmPassword"
@@ -164,5 +172,4 @@ const handleSubmit = async (e) => {
     </div>
   );
 }
-
 export default Signup;
